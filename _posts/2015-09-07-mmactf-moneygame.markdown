@@ -74,6 +74,7 @@ def set_stocks():
 Now that we have our three stock listings, we have to determine the optimal buy/sell path to success.
 
 The quick and dirty method I used is described below:
+
 * Calculate the peaks and valleys of each stock listings
 * Calculate the largest profit margins for each stock using the peaks and valleys
 * Sort all profit margins together
