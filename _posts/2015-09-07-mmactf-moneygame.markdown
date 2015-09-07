@@ -1,3 +1,9 @@
+---
+layout: post
+title:  "MMACTF 2015 - Moneygame Writeup"
+date:   2015-09-07
+categories: CTF Writeup
+---
 # Moneygame 1/2
 
 ## Recon
