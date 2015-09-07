@@ -10,24 +10,42 @@ categories: CTF Writeup
 
 We are presented with a stock market game. We have to time the market just right in order to get 10x our initial cash pile. Psh.. easy peasy
 
+{% highlight %}
+Week #1: 
+You have $10000.00!
+Stock #1: $100.00 (You have 0.)
+Stock #2: $100.00 (You have 0.)
+Stock #3: $100.00 (You have 0.)
+Action (Buy/Sell/Rest) [Rest] : Buy
+Which stock do you want to buy? (1-3) [1]: 1
+How many stocks do you want to buy? (0-100) [0]: 100
+
+
+Week #2: 
+You have $0.00!
+Stock #1: $103.16 (You have 100.)
+Stock #2: $91.44 (You have 0.)
+Stock #3: $92.64 (You have 0.)
+Action (Buy/Sell/Rest) [Rest] : 
+{% endhighlight %}
+
 Taking a look at the binary, we see that the numbers are generated from an `srand(time(0))`. This is great for us, since we can create the same random number sequence on our end, thus negating the "random" factor of the stocks.
 
 ![srand.png](/assets/images/srand.png)
 
 ## Quick aside
 
-There is a print function that clears the screen in the binary. This was annoying to debug. Patching over it is a breeze with [binjitsu](http://www.github.com/binjitsu/binjitsu)
+There is a print function that clears the screen in the binary. This only allowed for one week of stocks to be seen at one time. This was quite annoying for debugging. Let's remove that functionality by patching over a call to `printf()`. Patching over it is a breeze with [binjitsu](http://www.github.com/binjitsu/binjitsu).
 
 {% highlight python %}
 from pwn import *
 
 elf = ELF('moneygame')
+
 # NOP out annoying print that clears screen
-elf.asm(0x80487b3, 'nop')
-elf.asm(0x80487b4, 'nop')
-elf.asm(0x80487b5, 'nop')
-elf.asm(0x80487b6, 'nop')
-elf.asm(0x80487b7, 'nop')
+# call printf is 5 bytes
+for addr in (0x80487b3, 0x80487b8):
+    elf.asm(addr, 'nop')
 
 elf.save('moneygame-patched')
 {% endhighlight %}
@@ -36,7 +54,7 @@ Now, `moneygame-patched` can use used locally without the annoying screen clear.
 
 ## Flag 1
 
-With the help of Python's ctypes, generating these random numbers on our end is trivial:
+With the help of Python's ctypes, generating random numbers on our end is trivial:
 
 {% highlight python %}
 from ctypes import CDLL
@@ -92,12 +110,14 @@ The top three profit margins:
 Starting with the most profitable, fill in our available actions:
 {% highlight python %}
 [4, 6, 100, '1'] Stock 1 from week 4 to 6 yields 100
+
 Actions: ['', '', '', '', 'Buy stock1', 'Rest', 'Sell stock1', '', '', '']
 {% endhighlight %}
 
 Second most profitable:
 {% highlight python %}
 [7, 9, 80,  '3'] Stock 3 from week 7 to 9 yields 80
+
 Actions: ['', '', '', '', 'Buy stock1', 'Rest', 'Sell stock1', 'Buy stock3', 'Rest', 'Sell stock3']
 {% endhighlight %}
 
@@ -105,6 +125,7 @@ Our third most profitable overlaps and existing range i.e. the [4, 6, 100, '1'].
 Note: This is not optimal. Bigger improvements can be made, but are not necessary.
 {% highlight python %}
 [1, 5, 50, '2']
+
 # Note: 1 - 5 overlaps into existing 4 - 6, Try to go as far as we can before selling.
 Actions: ['', 'Buy stock2', 'Rest', 'Sell stock2', 'Buy stock1', 'Rest', 'Sell stock1', 'Buy stock3', 'Rest', 'Sell stock3']
 {% endhighlight %}
