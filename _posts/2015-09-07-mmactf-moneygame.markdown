@@ -1,15 +1,13 @@
 ---
 layout: post
-title:  "MMACTF 2015 - Moneygame Writeup"
-date:   2015-09-07 18:03:59
+title: "MMACTF 2015 - Moneygame Writeup"
+date: 2015-09-07 18:03:59
 categories: CTF Writeup
 ---
 
-## Recon
-
 We are presented with a stock market game. We have to time the market just right in order to get 10x our initial cash pile. Psh.. easy peasy
 
-{% highlight %}
+{% highlight ruby %}
 Week #1: 
 You have $10000.00!
 Stock #1: $100.00 (You have 0.)
