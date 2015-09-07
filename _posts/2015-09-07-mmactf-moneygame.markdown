@@ -12,7 +12,7 @@ We are presented with a stock market game. We have to time the market just right
 
 Taking a look at the binary, we see that the numbers are generated from an `srand(time(0))`. This is great for us, since we can create the same random number sequence on our end, thus negating the "random" factor of the stocks.
 
-![srand.png](srand.png)
+![srand.png](/assets/images/srand.png)
 
 ## Quick aside
 
