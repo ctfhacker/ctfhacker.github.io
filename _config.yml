@@ -1,6 +1,6 @@
-name: Hack the planet
-description: CTF, Security, and stuff
-meta_description: "Hack the planet"
+name: CTF, Security
+description: Description
+meta_description: Hack the planet
 
 markdown: redcarpet
 highlighter: pygments
