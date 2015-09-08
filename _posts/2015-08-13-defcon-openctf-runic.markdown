@@ -9,7 +9,7 @@ categories: CTF
 
 Below is the main function for Runic:
 
-![Runic main](runic.png)
+![Runic main](/assets/images/runic.png)
 
 The following events happen:
 
