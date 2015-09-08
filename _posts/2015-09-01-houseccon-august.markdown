@@ -197,7 +197,7 @@ Seeing a message box and a few "Active" users, hints strongly towards Cross-Site
 <img/src="./"/onerror="&#0097;&#00108;&#00101;&#00114;&#00116;&#0040;&#0039;&#0088;&#0083;&#0083;&#0039;&#0041;">
 ```
 
-![XSS 1](/houseccon-2015-august/pics/xss-1.png)
+![XSS 1](/assets/images/xss-1.png)
 
 
 Our next task, is to test if our "Active" users are actually active. Sending a simple `<IMG>` tag to `ctaroot` trying to access an image on my AWS instance gives a successful request.
