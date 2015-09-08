@@ -22,7 +22,7 @@ Began with the obvious of throwing the ciphertext into [quipquip](http://www.qui
 
 This immediately sparked the memory of the Da Vinci Code cryptex. 
 
-![Cryptex](/assets/images/cryptex.jpg)
+![Cryptex](/assets/images/cryptex.png)
 
 I began doing some awkward transformations of shifting each letter in the cipher text a number in the PSK:
 
