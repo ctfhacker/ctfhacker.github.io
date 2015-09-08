@@ -5,8 +5,6 @@ date:   2015-08-13 18:03:59
 categories: CTF
 ---
 
-## Recon
-
 Below is the main function for Runic:
 
 ![Runic main](/assets/images/runic.png)
@@ -24,7 +22,7 @@ The following script simply sends a `/bin/sh` shellcode, and a shell of ours.
 
 {% highlight python %}
 import sys
-from pwn import * # pip install pwntools
+from pwn import * # pip install --upgrade git+https://github.com/binjitsu/binjitsu.git
 
 context(arch='x86', os='linux')
 
