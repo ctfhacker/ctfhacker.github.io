@@ -34,7 +34,7 @@ Taking a look at the binary, we see that the numbers are generated from an `sran
 
 There is a print function that clears the screen in the binary. This only allowed for one week of stocks to be seen at one time. This was quite annoying for debugging. Let's remove that functionality by patching over a call to `printf()`. Patching over it is a breeze with [binjitsu](http://www.github.com/binjitsu/binjitsu).
 
-{% highlight python %}
+```python
 from pwn import *
 
 elf = ELF('moneygame')
@@ -45,7 +45,7 @@ for addr in (0x80487b3, 0x80487b8):
     elf.asm(addr, 'nop')
 
 elf.save('moneygame-patched')
-{% endhighlight %}
+```
 
 Now, `moneygame-patched` can use used locally without the annoying screen clear. Now to the actual write-up
 
