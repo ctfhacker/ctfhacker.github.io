@@ -98,6 +98,7 @@ The quick and dirty method I used is described below:
 An example of the last step of this simple algorithm is below:
 
 The top three profit margins:
+
 ```
 [4, 6, 100, '1'] Stock 1 from week 4 to 6 yields 100
 [7, 9, 80,  '3'] Stock 3 from week 7 to 9 yields 80
@@ -105,6 +106,7 @@ The top three profit margins:
 ```
 
 Starting with the most profitable, fill in our available actions:
+
 ```
 [4, 6, 100, '1'] Stock 1 from week 4 to 6 yields 100
 
@@ -112,6 +114,7 @@ Actions: ['', '', '', '', 'Buy stock1', 'Rest', 'Sell stock1', '', '', '']
 ```
 
 Second most profitable:
+
 ```
 [7, 9, 80,  '3'] Stock 3 from week 7 to 9 yields 80
 
@@ -120,6 +123,7 @@ Actions: ['', '', '', '', 'Buy stock1', 'Rest', 'Sell stock1', 'Buy stock3', 'Re
 
 Our third most profitable overlaps and existing range i.e. the [4, 6, 100, '1']. In this case, fill as much as we can before the start of the existing range.
 Note: This is not optimal. Bigger improvements can be made, but are not necessary.
+
 ```
 [1, 5, 50, '2']
 
