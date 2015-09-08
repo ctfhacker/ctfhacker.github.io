@@ -136,7 +136,7 @@ csc dialer.cs
 
 In order to quickly find if we have a good solution, a dumb check script was written to check if any more than half of a given line are letters.
 
-```
+```python
 import string
 import glob
 for filename in glob.glob('output*.txt'):
