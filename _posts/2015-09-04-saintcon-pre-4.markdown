@@ -37,6 +37,7 @@ R >> 20
 Realizing this was a terrible idea, went back to the PDF to realize that there are numbers at the top of the 2x2 grid. It then became obvious that the PSK given is the order of the tumblers needed to solve the ciphertext.
 
 The solution script does the following:
+
 * Extracts each individual tumbler
 * Arranges the tumblers in order based on the PSK
 * Rotates each tumbler to match the ciphertext
