@@ -70,7 +70,32 @@ a___  16 32 64   x86.as      LGPL3   Intel X86 GNU Assembler
 
 By simply looped through this list sending back a response to the server until I received a second question. My initial assumption was that the server is single architecture, so once I found one successful answer, the rest should be easy-peasy.
 
-See [find_language.py](https://github.com/thebarbershopper/ctf-writeups/blob/master/seccon-ctf-2014/lets-disassemble/find_language.py) 
+```python
+for curr_arch in archs:
+    with remote(addr, port) as r:
+        arch = curr_arch
+    
+        # Grab problem
+        msg = r.recv(timeout=3)
+        print msg
+
+        # Recv only the assembly from problem
+        asm = msg.split('\n')[0].split(':')[1].replace(' ','')
+
+        # Call rasm2 with the assembly and correct architecture
+        res = subprocess.check_output('rasm2 -d "{}" -a {}'.format(asm, arch), shell=True)
+        try:
+            print '{0} {1} {0}'.format('-'*20, arch)
+            r.clean(1)
+            r.sendline(res)
+            log.info("In: {} Out: {}".format(asm, res))
+            if '#2' in r.recv(timeout=2):
+                print "FOUND IT"
+                raw_input()
+        except Exception as e:
+            print str(e)
+            pass
+```
 
 The script stopped at language `z80`. 
 
