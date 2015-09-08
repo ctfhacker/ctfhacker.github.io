@@ -1,11 +1,12 @@
 ---
 layout: post
-title:  "Defcon OpenCTF - Runic"
+title:  "Defcon OpenCTF - Sigil"
 date:   2015-08-13 18:03:59
 categories: CTF Pwnable
 ---
 
 The main funciton of sigil is below:
+
 ![Sigil main](/assets/images/sigil.png)
 
 The following occurs:
