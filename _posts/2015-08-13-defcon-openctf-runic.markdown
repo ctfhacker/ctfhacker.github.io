@@ -2,7 +2,7 @@
 layout: post
 title:  "Defcon OpenCTF - Runic"
 date:   2015-08-13 18:03:59
-categories: CTF Writeup
+categories: CTF
 ---
 
 ## Recon
