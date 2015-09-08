@@ -7,7 +7,7 @@ categories: CTF
 
 We are presented with a stock market game. We have to time the market just right in order to get 10x our initial cash pile. Psh.. easy peasy
 
-{% highlight ruby %}
+```
 Week #1: 
 You have $10000.00!
 Stock #1: $100.00 (You have 0.)
@@ -24,7 +24,7 @@ Stock #1: $103.16 (You have 100.)
 Stock #2: $91.44 (You have 0.)
 Stock #3: $92.64 (You have 0.)
 Action (Buy/Sell/Rest) [Rest] : 
-{% endhighlight %}
+```
 
 Taking a look at the binary, we see that the numbers are generated from an `srand(time(0))`. This is great for us, since we can create the same random number sequence on our end, thus negating the "random" factor of the stocks.
 
