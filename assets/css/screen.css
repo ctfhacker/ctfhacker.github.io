@@ -898,6 +898,8 @@ body:not(.post-template) .post-title {
     max-width: none;
     margin: 0 -13%;
     -moz-box-shadow: 0 0 25px 0 #ccc; /* PJ */
+    -webkit-box-shadow: 0 0 25px 0 #ccc; /* PJ */
+    box-shadow:         0 0 25px 0 #ccc; /* PJ */
 }
 
 /* The author credit area after the post */
