@@ -2,7 +2,7 @@
 layout: post
 title: "MMACTF 2015 - Moneygame"
 date: 2015-09-07 18:03:59
-categories: CTF
+categories: CTF Pwnable
 ---
 
 We are presented with a stock market game. We have to time the market just right in order to get 10x our initial cash pile. Psh.. easy peasy

