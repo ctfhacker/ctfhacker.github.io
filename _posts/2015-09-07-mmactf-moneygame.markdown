@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "MMACTF 2015 - Moneygame Writeup"
+title: "MMACTF 2015 - Moneygame"
 date: 2015-09-07 18:03:59
 categories: CTF
 ---
