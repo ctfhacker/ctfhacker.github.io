@@ -5,7 +5,7 @@ date:   2015-08-13 18:03:59
 categories: CTF Pwnable
 ---
 
-The main funciton of sigil is below:
+Below is the main funciton of Sigil:
 
 ![Sigil main](/assets/images/sigil.png)
 
