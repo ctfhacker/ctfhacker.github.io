@@ -37,7 +37,7 @@ syscall       # Execute read
 
 From here, we send a second shellcode containing our generic `/bin/sh` shellcode in order to receive our shell.
 
-The full exploit is below:
+## Final Exploit
 
 ```python
 from pwn import * # pip install --upgrade git+https://github.com/binjitsu/binjitsu.git

@@ -16,7 +16,7 @@ The following events happen:
 
 We can send a max of 64 bytes of shellcode, which is immediately executed.
 
-## Exploitation
+## Final Exploit
 
 The following script simply sends a `/bin/sh` shellcode, and a shell of ours.
 

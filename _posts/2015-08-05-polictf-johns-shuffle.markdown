@@ -34,7 +34,7 @@ Once we have control of EIP, and the fact that NX is on, we have to start ROP'in
 
 The binary itself randomizes the GOT each connection, so the exploit can take a while to actually land while waiting for our `system` and `read` addresses to line up properly. Give it a bit, and the exploit lands perfectly.
 
-### Exploit code
+## Final Exploit
 
 ```python
 from pwn import *

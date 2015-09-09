@@ -89,7 +89,7 @@ Exploit will work as follows:
 * ???
 * Profit
 
-### Exploit code
+### Final Exploit
 
 ```python
 from pwn import *

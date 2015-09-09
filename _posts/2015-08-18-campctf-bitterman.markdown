@@ -76,7 +76,7 @@ $ cat flag.txt
 CAMP15_a786be6aca70bfd19b6af86133991f80
 ```
 
-## Exploit Code
+## Final Exploit
 
 ```python
 
