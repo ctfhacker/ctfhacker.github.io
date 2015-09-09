@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "CampCTF Bitterman"
+title:  "CampCTF 2015 - Bitterman"
 date:   2015-08-18 18:03:59
 categories: CTF Pwnable
 ---

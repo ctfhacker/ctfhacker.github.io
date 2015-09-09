@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "PoliCTF John's Library"
+title:  "PoliCTF 2015 - John's Library"
 date:   2015-08-05 18:03:59
 categories: CTF Pwnable
 ---

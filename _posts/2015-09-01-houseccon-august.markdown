@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "HouSecCon August Pre-CTF"
+title:  "HouSecCon August 2015 Pre-CTF"
 date:   2015-09-01 18:03:59
 categories: CTF Web
 ---

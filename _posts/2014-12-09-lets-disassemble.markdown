@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "SECCON Let's Disassemble"
+title:  "SECCON 2014 - Let's Disassemble"
 date:   2014-12-09 18:03:59
 categories: CTF Programming
 ---

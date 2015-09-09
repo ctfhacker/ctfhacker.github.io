@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Defcon OpenCTF - Runic"
+title:  "Defcon OpenCTF 2015 - Runic"
 date:   2015-08-13 18:03:59
 categories: CTF Pwnable
 ---

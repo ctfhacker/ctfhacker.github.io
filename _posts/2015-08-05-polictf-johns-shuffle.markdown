@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "PoliCTF John's Shuffle"
+title:  "PoliCTF 2015 - John's Shuffle"
 date:   2015-08-05 18:03:59
 categories: CTF Pwnable
 ---

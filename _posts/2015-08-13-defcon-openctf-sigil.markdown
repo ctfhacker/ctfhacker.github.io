@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Defcon OpenCTF - Sigil"
+title:  "Defcon OpenCTF 2015 - Sigil"
 date:   2015-08-13 18:03:59
 categories: CTF Pwnable
 ---
