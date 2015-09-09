@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "PicoCTF Steve's List Backup"
+title:  "PicoCTF 2014 - Steve's List Backup"
 date:   2014-12-08 18:03:59
 categories: CTF Web
 ---
