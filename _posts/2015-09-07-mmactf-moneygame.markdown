@@ -149,8 +149,11 @@ There is a string format vulnerability in the name field of the high score after
 
 ## Video Flag 1
 
+<script type="text/javascript" src="https://asciinema.org/a/4dzoih143nyx7q66raq020qt4.js" id="asciicast-4dzoih143nyx7q66raq020qt4" async></script>
+
 ## Video Flag 2
-<script type="text/javascript" src="https://asciinema.org/a/cwb7bs9xy0nynxcu1j67f018b.js" id="asciicast-cwb7bs9xy0nynxcu1j67f018b" async></script>
+
+<script type="text/javascript" src="https://asciinema.org/a/6l80xz5lqt48tzj9y3g18p1no.js" id="asciicast-6l80xz5lqt48tzj9y3g18p1no" async></script>
 
 ## Final Exploit
 
