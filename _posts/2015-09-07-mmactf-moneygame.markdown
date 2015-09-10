@@ -147,6 +147,11 @@ There is a string format vulnerability in the name field of the high score after
 # Padding necessary -> 50 - 4 bytes of address = 46
 ```
 
+## Video Flag 1
+
+## Video Flag 2
+<script type="text/javascript" src="https://asciinema.org/a/cwb7bs9xy0nynxcu1j67f018b.js" id="asciicast-cwb7bs9xy0nynxcu1j67f018b" async></script>
+
 ## Final Exploit
 
 ```python
