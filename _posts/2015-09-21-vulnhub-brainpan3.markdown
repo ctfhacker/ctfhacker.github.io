@@ -973,3 +973,4 @@ strncpy(0x804b005, shellcode?, len(shellcode))
 0x08048784 : add al, 8 ; call eax
 0x08048786 : call eax
 ```
+asdfasdf
