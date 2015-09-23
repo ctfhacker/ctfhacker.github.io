@@ -8,10 +8,12 @@ categories: boot2root Pwnable
 Brainpan3 is a typical boot2root VM that we boot and attempt to gain root access. This one is a bit long, but I hope it is entertaining and informative. Strap in!
 
 ### Tools of the trade
-[Pwndbg](https://github.com/zachriggle/pwndbg) 
-[Binjitsu](https://github.com/binjitsu/binjitsu/) 
+Two toolsets are used heavily throughout this writeup:
+* [Pwndbg](https://github.com/zachriggle/pwndbg) 
+* [Binjitsu](https://github.com/binjitsu/binjitsu/) 
 
 ## Recon
+First things first, let's see where the heck this box is on our virtual network. 
 
 ```
 nmap -p- 192.168.224.0/24 -Pn --open -T5
