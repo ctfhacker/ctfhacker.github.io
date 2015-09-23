@@ -10,8 +10,8 @@ Brainpan3 is a typical boot2root VM that we boot and attempt to gain root access
 ### Tools of the trade
 Two toolsets are used heavily throughout this writeup:
 
-* [Pwndbg](https://github.com/zachriggle/pwndbg) 
-* [Binjitsu](https://github.com/binjitsu/binjitsu/) 
+* [Pwndbg - Fancy GDB wrapper](https://github.com/zachriggle/pwndbg) 
+* [Binjitsu - Python CTF Framework](https://github.com/binjitsu/binjitsu/) 
 
 ## Recon
 First things first, let's see where the heck this box is on our virtual network. 
