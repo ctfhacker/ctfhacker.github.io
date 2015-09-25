@@ -316,7 +316,7 @@ SESSION: YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
   ENTER COMMAND: $  
 ```
 
-Notice the Report now has `[Y]`! Boom!n. Let's see what we can do with reports.
+Notice the Report now has `[Y]`! Boom!. Let's see what we can do with reports.
 
 ## Step 3
 
