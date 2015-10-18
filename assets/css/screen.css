@@ -894,12 +894,12 @@ body:not(.post-template) .post-title {
 /* Break out larger images to be wider than the main text column
    the class is applied with jQuery */
 .post-content .full-img {
+    box-shadow: 0 0 25px 0 #ccc;
+    -moz-box-shadow: 0 0 25px 0 #ccc;
+    -webkit-box-shadow: 0 0 25px 0 #ccc;
     width: 126%;
     max-width: none;
     margin: 0 -13%;
-    -moz-box-shadow: 0 0 25px 0 #ccc; /* PJ */
-    -webkit-box-shadow: 0 0 25px 0 #ccc; /* PJ */
-    box-shadow:         0 0 25px 0 #ccc; /* PJ */
 }
 
 /* The author credit area after the post */
