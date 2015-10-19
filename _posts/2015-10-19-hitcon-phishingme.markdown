@@ -25,7 +25,7 @@ Create a new `.doc` and open up the `Macros` window from the `Developer` tab.
 
 Create a new macro.
 
-![macro2](/assets/images/macro2.png)
+![macroagain](/assets/images/macro2.png)
 
 For our macro, we will attempt to run a simple command via `cmd.exe`.
 
@@ -47,7 +47,7 @@ End Function
 
 Drop this script into the macro window and save that bad boy.
 
-![macro3](/assets/images/macro3.png)
+![macroagainagain](/assets/images/macro3.png)
 
 To test that the command executed, let's watch for ping requests on our server.
 
