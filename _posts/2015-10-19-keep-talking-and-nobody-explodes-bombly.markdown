@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: generic
 title:  "Voice Robot plays Keep Talking and Nobody Explodes"
 date:   2015-10-19 18:03:59
 categories: python voice robot
