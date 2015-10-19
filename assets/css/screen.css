@@ -900,7 +900,7 @@ body:not(.post-template) .post-title {
     box-shadow: 0 0 25px 0 #ccc;
     -moz-box-shadow: 0 0 25px 0 #ccc;
     -webkit-box-shadow: 0 0 25px 0 #ccc;
-    width: 126%;
+    width: 100%;
     max-width: none;
     margin: 0 -13%;
 }
