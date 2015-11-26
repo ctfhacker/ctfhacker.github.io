@@ -900,9 +900,9 @@ body:not(.post-template) .post-title {
     box-shadow: 0 0 25px 0 #ccc;
     -moz-box-shadow: 0 0 25px 0 #ccc;
     -webkit-box-shadow: 0 0 25px 0 #ccc;
-    width: 0%;
+    width: 126%;
     max-width: none;
-    margin: 0 0%;
+    margin: 0 -13%;
 }
 
 /* The author credit area after the post */
