@@ -98,6 +98,8 @@ We use a `BVS` (Bit Vector Symbol) as the symbolic variable object. This is used
 Now that our initial state is given, we simply create an `Explorer` object. We give this object where we start, where we want to finish, and what equations to avoid. The Explorer will then attempt to find a path following those constraints.
 
 ```python
+# ID from Radare
+bomb_explode = 0x40143a
 path = proj.factory.path(state=state)
 ex = proj.surveyors.Explorer(start=path, find=(0x400f3c,),
                              avoid=(bomb_explode,), enable_veritesting=True)
@@ -119,8 +121,8 @@ if ex.found:
         # 0x0000000200000001
 
         # This is just one way to extract the individual numbers from this popped value
-        answer.append(str(curr_int & 0xffff))
-        answer.append(str(curr_int>>32 & 0xffff))
+        answer.append(str(curr_int & 0xffffffff))
+        answer.append(str(curr_int>>32 & 0xffffffff))
 
     return ' '.join(answer)
 ```
@@ -182,8 +184,8 @@ def main():
             # 0x0000000200000001
 
             # This is just one way to extract the individual numbers from this popped value
-            answer.append(str(curr_int & 0xffff))
-            answer.append(str(curr_int>>32 & 0xffff))
+            answer.append(str(curr_int & 0xffffffff))
+            answer.append(str(curr_int>>32 & 0xffffffff))
 
         return ' '.join(answer)
 
