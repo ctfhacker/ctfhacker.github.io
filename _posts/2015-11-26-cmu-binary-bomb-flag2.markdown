@@ -80,7 +80,7 @@ We begin by handing our binary to Angr.
 proj = angr.Project('bomb', load_options={'auto_load_libs':False})
 ```
 
-We don't want to run the entire binary to reach Phase 2 and simply want to start at Phase 2. This can be acheived with a `blank_state`. We being starting execution at the instruction after the call to `read_six_numbers`.
+We don't want to run the entire binary to reach Phase 2 and simply want to start at Phase 2. This can be acheived with a `blank_state`. We begin execution at the instruction after the call to `read_six_numbers`.
 
 ```python
 state = proj.factory.blank_state(addr=0x400f0a)
