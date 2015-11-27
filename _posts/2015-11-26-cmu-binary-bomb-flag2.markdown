@@ -13,7 +13,7 @@ This entire writeup was performed in my [Vagrant CTF VM](https://github.com/theb
 
 For those unfamiliar with symbolic execution, I will present a summary of the mechanics as we proceed in the writeup. For further insight, I highly recommend checking out the [MIT lecture on the subject](https://www.youtube.com/watch?v=mffhPgsl8Ws) (For real, if you haven't seen symbolic execution before, this will appear to be black magic. A little background goes a long way).
 
-In the reversing space, symbolic execution allows us as reverse engineers to as the engine to find a given path from Address A to Address B given a certain input. This is accomplished by converting this reversing problem to a [SAT problem](https://en.wikipedia.org/wiki/Boolean_satisfiability_problem) where we can apply [SMT solvers](https://en.wikipedia.org/wiki/Satisfiability_modulo_theories) to determine a correct input.
+In the reversing space, symbolic execution allows us as reverse engineers find a given path from Address A to Address B given a certain input. This is accomplished by converting this reversing problem to a [SAT problem](https://en.wikipedia.org/wiki/Boolean_satisfiability_problem) where we can apply [SMT solvers](https://en.wikipedia.org/wiki/Satisfiability_modulo_theories) to determine a correct input.
 
 ## Problem at hand
 
