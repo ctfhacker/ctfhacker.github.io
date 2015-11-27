@@ -35,7 +35,7 @@ We proceed to `seek` to our interesting function and then print the function con
 
 ![radare2](/assets/images/cmu/cmu1_3.png)
 
-This is a nice view for small programs, but large programs can be a bit difficult to traverse. With Radare's Visual Move `VV`, we can see an ascii conditional flow graph.
+This is a nice view for small functions, but large functions can be a bit difficult to traverse. With Radare's Visual Move `VV`, we can see an ascii conditional flow graph.
 
 ![radare2](/assets/images/cmu/cmu1_4.png)
 
