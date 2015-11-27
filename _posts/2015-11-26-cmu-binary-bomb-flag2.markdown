@@ -39,7 +39,7 @@ This is a nice view for small programs, but large programs can be a bit difficul
 
 ![radare2](/assets/images/cmu/cmu1_4.png)
 
-In order for us to proceed with symbolic execution, the first step is to examine how the function is taking our data as input. The `read_six_numbers` function looks interesting. With radare in Visual Mode, simply pressing `ga` will jump to the `read_six_numbers` function. (`g` for `goto symbol` and the `a` from the identified shortcut at `0x400f05` in the previous image)
+In order for us to proceed with symbolic execution, the first step is to examine how the function is taking our data as input. The `read_six_numbers` function looks interesting. With radare in Visual Mode, simply pressing `ga` will jump to the `read_six_numbers` function (`g` for `goto symbol` and the `a` from the identified shortcut at `0x400f05` in the previous image).
 
 ![radare2](/assets/images/cmu/cmu1_5.png)
 
