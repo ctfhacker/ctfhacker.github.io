@@ -35,7 +35,7 @@ We proceed to `seek` to our interesting function and then print the function con
 
 ![radare2](/assets/images/cmu/cmu1_3.png)
 
-This is a nice view for small functions, but large functions can be a bit difficult to traverse. With Radare's Visual Move `VV`, we can see an ascii conditional flow graph.
+This is a nice view for small functions, but large functions can be a bit difficult to traverse. With Radare's Visual Mode `VV`, we can see an ascii conditional flow graph.
 
 ![radare2](/assets/images/cmu/cmu1_4.png)
 
@@ -51,7 +51,7 @@ Hitting the breakpoint, we examine what the stack looks like with `hexdump $rsp`
 
 ![radare2](/assets/images/cmu/cmu1_7.png)
 
-Our assumption was correct; we do see six 32-bit values on the stack. We will create six 32-bit symbolic values once we being our script.
+Our assumption was correct; we do see six 32-bit values on the stack. We will create six 32-bit symbolic values once we begin our script.
 
 The last piece of the puzzle that we need is to identify where we want to start execution, finish execution, and what part of execution we want to avoid. Let's take a quick look at the overall function graph in radare (cycle through the modes with `p`). We can see that there are two locations `0x400f10` and `0x400f20` that both call the `explode_bomb` function.
 
