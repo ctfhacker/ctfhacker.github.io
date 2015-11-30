@@ -13,7 +13,7 @@ This entire writeup was performed in my [Vagrant CTF VM](https://github.com/theb
 
 For those unfamiliar with symbolic execution, I will present a summary of the mechanics as we proceed in the writeup. For further insight, I highly recommend checking out the [MIT lecture on the subject](https://www.youtube.com/watch?v=mffhPgsl8Ws) (For real, if you haven't seen symbolic execution before, this will appear to be black magic. A little background goes a long way).
 
-In the reversing space, symbolic execution allows us as reverse engineers find a given path from Address A to Address B given a certain input. This is accomplished by converting this reversing problem to a [SAT problem](https://en.wikipedia.org/wiki/Boolean_satisfiability_problem) where we can apply [SMT solvers](https://en.wikipedia.org/wiki/Satisfiability_modulo_theories) to determine a correct input.
+In the reversing space, symbolic execution allows us as reverse engineers to find a given path from Address A to Address B given a certain input. This is accomplished by converting this reversing problem to a [SAT problem](https://en.wikipedia.org/wiki/Boolean_satisfiability_problem) where we can apply [SMT solvers](https://en.wikipedia.org/wiki/Satisfiability_modulo_theories) to determine a correct input.
 
 ## Problem at hand
 
@@ -72,9 +72,9 @@ With that being found, we have our entire roadmap for symbolic execution. We hav
 
 With the pieces of the golden cup in hand, let's begin constructing the script to solve this puzzle without actually solving the puzzle ourselves.
 
-We will be using [Angr](https://angr.io), a concolic execution engine developed by several researchers at the [Computer Security Lab at UC Santa Barbara](https://seclab.cs.ucsb.edu/). This is the same engine that will be competing in the Finals for DARPA's Cyber Grand Challenge. For more information on Angr, check out their [Docs](https://github.com/angr/angr-doc).
+We will be using [angr](https://angr.io), a concolic execution engine developed by several researchers at the [Computer Security Lab at UC Santa Barbara](https://seclab.cs.ucsb.edu/). This is the same engine that will be competing in the Finals for DARPA's Cyber Grand Challenge. For more information on angr, check out their [Docs](https://github.com/angr/angr-doc).
 
-We begin by handing our binary to Angr.
+We begin by handing our binary to angr.
 
 ```python
 proj = angr.Project('bomb', load_options={'auto_load_libs':False})
@@ -93,7 +93,7 @@ for i in xrange(6):
     state.stack_push(state.se.BVS('int{}'.format(i), 4*8))
 ```
 
-We use a `BVS` (Bit Vector Symbol) as the symbolic variable object. This is used internally by Angr to create our equation that will be solved by Angr's SMT solver.
+We use a `BVS` (Bit Vector Symbol) as the symbolic variable object. This is used internally by angr to create our equation that will be solved by angr's SMT solver.
 
 Now that our initial state is given, we simply create an `Explorer` object. We give this object where we start, where we want to finish, and what equations to avoid. The Explorer will then attempt to find a path following those constraints.
 
