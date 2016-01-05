@@ -5,7 +5,7 @@ date:   2016-01-06 18:03:59
 categories: CTF pcap pwn web
 ---
 
-It is that time of year again! Time for the HolidayHack presented by [CounterHack](https://www.counterhackchallenges.com/)! This one is going to be fairly long, but boy is there a lot of cool challenges here. Everything from network forensics, web, image forensics, and even a pwnable.
+It is that time of year again! Time for the HolidayHack presented by [CounterHack](https://www.counterhackchallenges.com/)! This one is going to be fairly long, but boy are there a lot of cool challenges here. Everything from network forensics, web, image forensics, and even a pwnable.
 
 Quick background about the story this year:
 
