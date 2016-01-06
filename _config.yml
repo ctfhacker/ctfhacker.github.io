@@ -11,7 +11,7 @@ domain_name: 'http://thebarbershopper.github.io'
 google_analytics: 'UA-67280590-1'
 
 # Details for the RSS feed generator
-url:            'blog url'
+url:            'www.ctfhacker.com'
 author:         'Cory Duplantis'
 gems:
   - jekyll-feed
