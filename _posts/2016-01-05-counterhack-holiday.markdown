@@ -1581,6 +1581,8 @@ What is even more interesting, is that `srand` is seeded with `time(0)`. This me
 
 Or... We could simply know that some random number between `0` and `0x400` (1024) is returned, and can simply repeatedly try the exploit until we randomly choose the right file descriptor.
 
+```Small Edit: While the below method is the one I used to complete this challenge, another solution would be to use the shellcraft.findpeersh() payload to automatically find the open socket itself, but where would the fun be in that ;-)```
+
 Being that we will be needing to `dup` our socket for the shellcode, let's utilize the `shellcraft.dupsh()` payload from `binjitsu`.
 
 ```
