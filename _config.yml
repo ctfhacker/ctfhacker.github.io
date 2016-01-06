@@ -13,3 +13,5 @@ google_analytics: 'UA-67280590-1'
 # Details for the RSS feed generator
 url:            'blog url'
 author:         'Cory Duplantis'
+gems:
+  - jekyll-feed
