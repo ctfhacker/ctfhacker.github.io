@@ -13,5 +13,3 @@ google_analytics: 'UA-67280590-1'
 # Details for the RSS feed generator
 url:            'www.ctfhacker.com'
 author:         'Cory Duplantis'
-gems:
-  - jekyll-feed
