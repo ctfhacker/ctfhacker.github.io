@@ -12,7 +12,7 @@ cover: assets/images/background.png
                     <img src="{{ page.logo }}" alt="Blog Logo" />
                 </a>
             {% endif %}
-        <a class="subscribe-button icon-feed" href="{{ site.baseurl }}rss.xml">Subscribe</a>
+        <a class="subscribe-button icon-feed" href="{% feed_meta %}">Subscribe</a>
     </nav>
     <div class="vertical">
         <div class="main-header-content inner">
@@ -20,7 +20,6 @@ cover: assets/images/background.png
             <h2 class="page-description">
                 {% if site.description %} {{ site.description }} {% endif %}
                 {% if page.about %} <a href='{{ site.baseurl }}{{ page.about }}' color='white'> About me </a> {% endif %}
-                {% feed_meta %}
             </h2>
         </div>
     </div>
