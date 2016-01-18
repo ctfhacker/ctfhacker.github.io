@@ -7,7 +7,7 @@ categories: ctf python symbolic execution reverse radare
 
 Symbolic execution has been a topic I have been meaning to jump into for a few months. Today we will look at how to apply symbolic execution to the Carnegie Melon Binary Bomb lab.
 
-This entire writeup was performed in my Vagrant CTF VM [EpicTreasure](https://github.com/thebarbershopper/EpicTreasure), which comes prepackaged with the tools necessary.
+This entire writeup was performed in my Vagrant CTF VM [EpicTreasure](https://github.com/ctfhacker/EpicTreasure), which comes prepackaged with the tools necessary.
 
 ## Symbolic Execution?
 

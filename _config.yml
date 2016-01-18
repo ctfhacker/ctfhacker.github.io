@@ -1,13 +1,13 @@
 name: CTF Hacker
-description: CTF Writeups, Security, Spreading the knowledge
-meta_description: Hack the planet
+description: Spreading the knowledge
+meta_description: Spreading the knowledge
 
 markdown: redcarpet
 highlighter: pygments
 logo: false
 paginate: 15
 baseurl: /
-domain_name: 'http://thebarbershopper.github.io'
+domain_name: 'http://ctfhacker.github.io'
 google_analytics: 'UA-67280590-1'
 
 # Details for the RSS feed generator

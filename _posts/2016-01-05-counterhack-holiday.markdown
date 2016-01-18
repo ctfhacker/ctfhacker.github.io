@@ -179,7 +179,7 @@ After retrieving the exfiltrated image from the Gnome, we get a chance to analyz
 
 Beginning with the firmware, we attempt to parse the various pieces using `binwalk`. `binwalk` attempts to parse out file formats that it recognizes out of a binary blob, in this case, the Gnome firmware.
 
-We can leverage [EpicTreasure](https://github.com/thebarbershopper/epictreasure) which has `binwalk` already installed by default.
+We can leverage [EpicTreasure](https://github.com/ctfhacker/epictreasure) which has `binwalk` already installed by default.
 
 ```
 binwalk -e firmware.bin
@@ -1331,7 +1331,7 @@ Before we dive into GDB, let's have a game plan on what we think will work for t
 * Enter a `200` length character string containing the specially positioned stack canary and our shellcode
 * Overwrite EIP with a `jmp esp` (or equivalent) instruction to redirect execution to the stack where our shellcode is ran
 
-From this point on, we can use [EpicTreasure](https://github.com/thebarbershopper/epictreasure), a Vagrant VM that comes prepackaged with all the tools necessary for most CTF RE and exploit challenges.
+From this point on, we can use [EpicTreasure](https://github.com/ctfhacker/epictreasure), a Vagrant VM that comes prepackaged with all the tools necessary for most CTF RE and exploit challenges.
 
 Let's see what happens when we run the binary.
 
