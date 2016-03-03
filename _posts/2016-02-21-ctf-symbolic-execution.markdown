@@ -1,23 +1,11 @@
 ---
 layout: post
-title:  "test"
-date:   2016-09-01 18:03:59
-categories: python pentest pentestly
+title:  "Internetwache RE60 Writeup: Symbolic Execution for the win"
+date:   2016-02-21 18:03:59
+categories: re angr
 ---
 
-# Internetwache RE60 Writeup: Symbolic Execution tramples CTF challenge
-
-I am always looking for problems that symbolic execution could be applied to in the capture the flag space. This past weekend, this challenge was met during the Internetwache CTF for its RE60 problem. Below I describe the application of symbolic execution to solve the challenge without much knowledge of the inner workings of the binary itself.
-
-# Symbolic Execution 101
-
-Symbolic Execution gives the reverse engineer the ability to find a specific path from Point A to Point B in a binary. This path is represented by a series of boolean expressions. These expressions can then be passed to a solver such as [Z3](https://z3.codeplex.com/) from Microsoft to solve the equation, creating an input that will exercise the found path.
-
-If this is the first time seeing this concept, I highly recommend checking out the [MIT lecture](https://www.youtube.com/watch?v=mffhPgsl8Ws) on the subject. That lecture will give you enough prerequisite knowledge to unveil some of the black magic of symbolic execution.
-
-# The challenge
-
-(This challenge was performed entirely in [EpicTreasure](https://github.com/praetorian-inc/epictreasure). If you don't want to setup the tools listed in this writeup, simply install EpicTreasure and you are off to the races)
+(This challenge was performed entirely in [EpicTreasure](https://github.com/ctfhacker/epictreasure). If you don't want to setup the tools listed in this writeup, simply install EpicTreasure and you are off to the races. Also, mirrored from my [Praetorian post](https://www.praetorian.com/blog/internetwache-re60-writeup-symbolic-execution-tramples-ctf-challenge))
 
 We begin by doing a bit of preliminary analysis to understand what the binary can do.
 
