@@ -5,7 +5,7 @@ date:   2016-09-19 18:03:59
 categories: pwn
 ---
 
-Let's take a look at the [moms spaghetti](https://github.com/isislab/CSAW-CTF-2016-Quals/tree/master/Pwn/Moms_Spaghetti) from CSAW Quals 2016. For those that want to play along at home, you can build your own server to throw against by the following:
+Let's take a look at the [moms spaghetti](https://github.com/isislab/CSAW-CTF-2016-Quals/tree/master/Pwn/Moms_Spaghetti) from CSAW Quals 2016.This solution was a collaboration between @thebarbershopper, @jduck, and @WanderingGlitch. For those that want to play along at home, you can build your own server to throw against by the following:
 
 ```
 # Install docker
