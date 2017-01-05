@@ -183,7 +183,7 @@ And here we have the answer of our next question:
 Now we need to find an embedded audio file in the APK. In order to retrieve the data in the APK, we can use [apktool](https://ibotpeaches.github.io/Apktool/). Extracting data using `apktool` can be done as follows:
 
 ```
-apktool d SantaGram_v3.2.apk
+apktool d SantaGram_v4.2.apk
 ```
 
 Using a simple `find` command in the resulting directory for various audio file extensions will surely find our hidden audio file:
