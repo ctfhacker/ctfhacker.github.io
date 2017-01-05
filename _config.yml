@@ -2,8 +2,8 @@ name: CTF Hacker
 description: Spreading the knowledge
 meta_description: Spreading the knowledge
 
-markdown: redcarpet
 highlighter: pygments
+# highlighter: rogue
 logo: false
 paginate: 15
 baseurl: /
@@ -15,3 +15,7 @@ url:            'www.ctfhacker.com'
 author:         'Cory Duplantis'
 gems:
   - jekyll-feed
+# - jekyll-paginate
+# kramdown:
+    # input: GFM
+    # syntax_highlighter: rogue
