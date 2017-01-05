@@ -167,7 +167,7 @@ public static void a(final Context context, String str) {
 final JSONObject jSONObject = new JSONObject();
 try {
         jSONObject.put("username", "guest");
-        jSONObject.put("password", "busyreindeer77");
+        jSONObject.put("password", "busyreindeer78");
         jSONObject.put("type", "usage");
         jSONObject.put("activity", str);
 {% endraw %}
