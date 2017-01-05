@@ -2,8 +2,7 @@ name: CTF Hacker
 description: Spreading the knowledge
 meta_description: Spreading the knowledge
 
-highlighter: pygments
-# highlighter: rogue
+highlighter: rogue
 logo: false
 paginate: 15
 baseurl: /
