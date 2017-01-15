@@ -3,6 +3,7 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/in
 choco install -y cmder
 choco install -y git.install
 
+choco install -y windbg
 choco install -y vcredist2005
 choco install -y vcredist2008
 choco install -y vcredist2010
@@ -19,8 +20,5 @@ choco install -y git
 choco install -y python2
 choco install -y sysinternals
 choco install -y wget
-choco install -y lastpass
-choco install -y unxutils
 choco install -y windows-sdk-8.1
 choco install -y windows-sdk-10.1
-choco install -y windbg
