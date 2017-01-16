@@ -1,9 +1,8 @@
 Set-ExecutionPolicy Unrestricted
 iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+choco install -y windbg
 choco install -y cmder
 choco install -y git.install
-
-choco install -y windbg
 choco install -y vcredist2005
 choco install -y vcredist2008
 choco install -y vcredist2010
@@ -22,3 +21,10 @@ choco install -y sysinternals
 choco install -y wget
 choco install -y windows-sdk-8.1
 choco install -y windows-sdk-10.1
+choco install -y visualstudio2012professional
+choco install -y cmake
+
+pip2 install pykd
+pip3 install pykd
+((new-object system.net.webclient).downloadfile('https://github.com/ctfhacker/windows-dotfiles/raw/master/pykd-dlls/x86/pykd.dll', 'C:\Program Files\Windows Kits\8.1\Debuggers\x86\winext\pykd.dll'))
+((new-object system.net.webclient).downloadfile('https://github.com/ctfhacker/windows-dotfiles/raw/master/pykd-dlls/x64/pykd.dll', 'C:\Program Files\Windows Kits\8.1\Debuggers\x64\winext\pykd.dll'))
