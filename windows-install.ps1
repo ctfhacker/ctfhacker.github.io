@@ -16,5 +16,5 @@ Get-ChildItem | ForEach-Object {
     & $_.FullName
 }
 
-Write-Host "Rebooting.."
-shutdown /r /t 0
+# Write-Host "Rebooting.."
+# shutdown /r /t 0
