@@ -5,9 +5,6 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/in
 Write-Host "Installing git"
 choco install -y git.install
 
-Write-Host "Cloning windows-setup"
-git clone https://github.com/ctfhacker/windows-setup C:\Windows\Temp\windows-setup
-
 ((New-Object System.Net.WebClient).DownloadFile('https://github.com/ctfhacker/windows-setup/archive/master.zip', 'C:\Windows\Temp\master.zip'))
 
 cd C:\Windows\Temp\
