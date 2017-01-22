@@ -7,5 +7,7 @@ Write-Host "Downloading VS2010Express.iso" -foregroundcolor "Green" -backgroundc
 Write-Host "Mounting VS2010Express.iso" -foregroundcolor "Green" -backgroundcolor "Black"
 & "C:\Program Files\Elaborate Bytes\VirtualCloneDrive\VCDMount.exe" /l=E C:\Windows\Temp\VS2010Express.iso
 Write-Host "Installing VS2010Express.iso" -foregroundcolor "Green" -backgroundcolor "Black"
-E:\VCExpress\setup.exe /q /norestart
+& E:\VCExpress\setup.exe /q /norestart
 Write-Host "Done Installing VS2010Express.iso" -foregroundcolor "Green" -backgroundcolor "Black"
+rm C:\Windows\Temp\VS2010Express.iso
+choco uninstall -y virtualclonedrive
