@@ -9,5 +9,4 @@ Write-Host "Mounting VS2010Express.iso" -foregroundcolor "Green" -backgroundcolo
 Write-Host "Installing VS2010Express.iso" -foregroundcolor "Green" -backgroundcolor "Black"
 & E:\VCExpress\setup.exe /q /norestart
 Write-Host "Done Installing VS2010Express.iso" -foregroundcolor "Green" -backgroundcolor "Black"
-rm C:\Windows\Temp\VS2010Express.iso
 choco uninstall -y virtualclonedrive
