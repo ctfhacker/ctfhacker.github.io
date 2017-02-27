@@ -10,7 +10,7 @@ $shell = new-object -com shell.application
 $zip = $shell.NameSpace("C:\Windows\Temp\master.zip")
 foreach($item in $zip.items())
 {
-    $shell.Namespace(".\master").copyhere($item)
+    $shell.Namespace("C:\Windows\Temp\master").copyhere($item)
 }
 
 cd .\master\windows-setup-master
