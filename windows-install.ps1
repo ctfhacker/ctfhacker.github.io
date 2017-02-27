@@ -7,7 +7,7 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/in
 cd C:\Windows\Temp\
 mkdir master
 $shell = new-object -com shell.application
-$zip = $shell.NameSpace("master.zip")
+$zip = $shell.NameSpace("C:\Windows\Temp\master.zip")
 foreach($item in $zip.items())
 {
     $shell.Namespace(".\master").copyhere($item)
