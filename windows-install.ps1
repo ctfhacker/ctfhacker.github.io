@@ -13,12 +13,12 @@ foreach($item in $zip.items())
     $shell.Namespace(".\master").copyhere($item)
 }
 
-cd master\windows-setup-master
+cd .\master\windows-setup-master
 
 Get-ChildItem | ForEach-Object {
     Write-Host "Executing " + $_.FullName
     & $_.FullName
 }
 
-Write-Host "Rebooting.."
-shutdown /r /t 0
+# Write-Host "Rebooting.."
+# shutdown /r /t 0
