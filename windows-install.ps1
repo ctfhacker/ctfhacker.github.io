@@ -15,7 +15,7 @@ foreach($item in $zip.items())
 
 cd .\master\windows-setup-master
 
-Get-ChildItem -exclude aaa*,pykd* | ForEach-Object {
+Get-ChildItem -exclude pykd* | ForEach-Object {
     Write-Host "Executing " + $_.FullName
     & $_.FullName
 }
