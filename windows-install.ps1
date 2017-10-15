@@ -11,7 +11,7 @@ cd C:\Windows\Temp\
 unzip master.zip
 cd windows-setup-master
 
-Get-ChildItem | ForEach-Object {
+Get-ChildItem -exlude "aaa*" | ForEach-Object {
     Write-Host "Executing " + $_.FullName
     & $_.FullName
 }
