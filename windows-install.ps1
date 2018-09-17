@@ -8,7 +8,7 @@ cd C:\Windows\Temp\
 & "C:\Program Files\Git\bin\git.exe" clone https://github.com/ctfhacker/windows-setup
 cd windows-setup
 
-Get-ChildItem | ForEach-Object {
+Get-ChildItem -exclude pykd* | ForEach-Object {
     Write-Host "Executing " + $_.FullName
     & $_.FullName
 }
