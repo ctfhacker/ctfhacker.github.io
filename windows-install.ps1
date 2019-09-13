@@ -2,23 +2,13 @@ Write-Host "Installing chocolatey"
 Set-ExecutionPolicy Unrestricted
 iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
-((New-Object System.Net.WebClient).DownloadFile('https://github.com/ctfhacker/windows-setup/archive/master.zip', 'C:\Windows\Temp\master.zip'))
+choco install -y git
 
 cd C:\Windows\Temp\
-mkdir master
-$shell = new-object -com shell.application
-$zip = $shell.NameSpace("C:\Windows\Temp\master.zip")
-foreach($item in $zip.items())
-{
-    $shell.Namespace("C:\Windows\Temp\master").copyhere($item)
-}
-
-cd .\master\windows-setup-master
+& "C:\Program Files\Git\bin\git.exe" clone https://github.com/ctfhacker/windows-setup
+cd windows-setup
 
 Get-ChildItem -exclude pykd* | ForEach-Object {
     Write-Host "Executing " + $_.FullName
     & $_.FullName
 }
-
-# Write-Host "Rebooting.."
-# shutdown /r /t 0

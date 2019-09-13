@@ -5,7 +5,7 @@ meta_description: Spreading the knowledge
 highlighter: rouge
 logo: false
 paginate: 15
-baseurl: /
+baseurl: 'http://ctfhacker.github.io'
 domain_name: 'http://ctfhacker.github.io'
 google_analytics: 'UA-67280590-1'
 
