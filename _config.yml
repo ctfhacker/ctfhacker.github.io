@@ -10,7 +10,7 @@ domain_name: 'http://ctfhacker.github.io'
 google_analytics: 'UA-67280590-1'
 
 # Details for the RSS feed generator
-url:            'http://ctfhacker.github.io'
+url:            'http://ctfhacker.com'
 author:         'Cory Duplantis'
 gems:
   - jekyll-feed
